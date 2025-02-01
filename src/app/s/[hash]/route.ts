@@ -11,5 +11,5 @@ export async function GET(req: NextRequest, { params }: Params) {
   if (url) {
     return redirect(url.fullUrl);
   }
-  return notFound();
+  return redirect('/_not-found');
 }
