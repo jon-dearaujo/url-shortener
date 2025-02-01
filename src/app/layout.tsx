@@ -25,9 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${robotoSans.variable} ${robotoMono.variable}`}>
-        <Provider forcedTheme="light">{children}</Provider>
+    <html
+      lang="en"
+      className={`${robotoSans.variable} ${robotoMono.variable}`}
+      suppressHydrationWarning
+    >
+      <head />
+      <body>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
