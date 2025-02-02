@@ -7,6 +7,5 @@ export function initializeDatabase() {
       fullUrl TEXT UNIQUE NOT NULL
     )`
   ).run();
-
   console.log('Database initialized!');
 }
