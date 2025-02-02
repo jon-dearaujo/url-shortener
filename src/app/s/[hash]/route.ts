@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { loadFromShortUrlHash } from '../../../lib/shorturls';
-import { notFound, redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 type Params = {
   params: Promise<{ hash: string }>;
