@@ -12,6 +12,16 @@ import {
 } from '@/components/ui/clipboard';
 import { InputGroup } from '@/components/ui/input-group';
 
+const CONSTANTS = {
+  pageTitle: 'Shorten your URL',
+  inputLabel: 'URL',
+  backendError: 'Could not make it shorter. Please, try again.',
+  requiredError: 'Required. Must be a valid http/https URL.',
+  inputPlaceholder: 'Type the URL to shorten',
+  ctaLabel: 'Shorten it',
+  revealTitle: 'Your Short URL:',
+};
+
 export default function Home() {
   const {
     invalidInputValue,
@@ -27,18 +37,18 @@ export default function Home() {
       <Center>
         <Container id="form">
           <Stack gap="5">
-            <Text textStyle="3x1">Shorten your URL</Text>
+            <Text textStyle="3x1">{CONSTANTS.pageTitle}</Text>
             <Center>
               <Field
-                label={<Text textStyle="lg">URL</Text>}
+                label={<Text textStyle="lg">{CONSTANTS.inputLabel}</Text>}
                 required
                 maxWidth="50rem"
                 textStyle="lg"
                 errorText={
                   <Text textStyle="lg">
                     {submitError
-                      ? 'Could not make it shorter. Please, try again.'
-                      : 'Required. Must be a valid http/https URL.'}
+                      ? CONSTANTS.backendError
+                      : CONSTANTS.requiredError}
                   </Text>
                 }
                 invalid={
@@ -50,7 +60,7 @@ export default function Home() {
                   onChange={onInputChange}
                   px="1"
                   fontSize="1.6rem"
-                  placeholder="Type the URL to shorten"
+                  placeholder={CONSTANTS.inputPlaceholder}
                 />
               </Field>
             </Center>
@@ -64,7 +74,7 @@ export default function Home() {
                 fontWeight="bold"
                 onClick={handleSubmit}
               >
-                Shorten it
+                {CONSTANTS.ctaLabel}
               </Button>
             </Center>
           </Stack>
@@ -79,7 +89,7 @@ export default function Home() {
                   value={`${window.location.origin}/s/${shortUrlHash}`}
                 >
                   <ClipboardLabel fontSize="1.6rem">
-                    Your Short URL:
+                    {CONSTANTS.revealTitle}
                   </ClipboardLabel>
                   <InputGroup
                     width="full"
