@@ -30,13 +30,16 @@ export default function Home() {
             <Text textStyle="3x1">Shorten your URL</Text>
             <Center>
               <Field
-                label="URL"
+                label={<Text textStyle="lg">URL</Text>}
                 required
                 maxWidth="50rem"
+                textStyle="lg"
                 errorText={
-                  submitError
-                    ? 'Could not make it shorter. Please, try again.'
-                    : 'Required. Must be a http/https URL.'
+                  <Text textStyle="lg">
+                    {submitError
+                      ? 'Could not make it shorter. Please, try again.'
+                      : 'Required. Must be a valid http/https URL.'}
+                  </Text>
                 }
                 invalid={
                   inputValue !== '' && (invalidInputValue || submitError)
