@@ -1,6 +1,14 @@
 'use client';
 
-import { Card, Center, Container, Input, Stack, Text } from '@chakra-ui/react';
+import {
+  Card,
+  Center,
+  Container,
+  Input,
+  Spinner,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import { Button } from '@/components/ui/button';
 import useCreatePage from './_create/hooks/useCreatePage';
 import { Field } from '@/components/ui/field';
@@ -12,16 +20,6 @@ import {
 } from '@/components/ui/clipboard';
 import { InputGroup } from '@/components/ui/input-group';
 
-const CONSTANTS = {
-  pageTitle: 'Shorten your URL',
-  inputLabel: 'URL',
-  backendError: 'Could not make it shorter. Please, try again.',
-  requiredError: 'Required. Must be a valid http/https URL.',
-  inputPlaceholder: 'Type the URL to shorten',
-  ctaLabel: 'Shorten it',
-  revealTitle: 'Your Short URL:',
-};
-
 export default function Home() {
   const {
     invalidInputValue,
@@ -30,6 +28,8 @@ export default function Home() {
     shortUrlHash,
     submitError,
     inputValue,
+    submitLoading,
+    i18nLabels,
   } = useCreatePage();
 
   return (
@@ -37,18 +37,18 @@ export default function Home() {
       <Center>
         <Container id="form">
           <Stack gap="5">
-            <Text textStyle="3x1">{CONSTANTS.pageTitle}</Text>
+            <Text textStyle="3x1">{i18nLabels.pageTitle}</Text>
             <Center>
               <Field
-                label={<Text textStyle="lg">{CONSTANTS.inputLabel}</Text>}
+                label={<Text fontSize="1.4rem">{i18nLabels.inputLabel}</Text>}
                 required
                 maxWidth="50rem"
-                textStyle="lg"
+                fontSize="1.4rem"
                 errorText={
-                  <Text textStyle="lg">
+                  <Text fontSize="1.4rem">
                     {submitError
-                      ? CONSTANTS.backendError
-                      : CONSTANTS.requiredError}
+                      ? i18nLabels.backendError
+                      : i18nLabels.requiredError}
                   </Text>
                 }
                 invalid={
@@ -60,21 +60,22 @@ export default function Home() {
                   onChange={onInputChange}
                   px="1"
                   fontSize="1.6rem"
-                  placeholder={CONSTANTS.inputPlaceholder}
+                  placeholder={i18nLabels.inputPlaceholder}
                 />
               </Field>
             </Center>
 
             <Center>
               <Button
-                disabled={invalidInputValue}
+                disabled={invalidInputValue || submitLoading}
                 px={5}
                 fontSize="1.6rem"
                 textTransform="uppercase"
                 fontWeight="bold"
                 onClick={handleSubmit}
               >
-                {CONSTANTS.ctaLabel}
+                {i18nLabels.ctaLabel}{' '}
+                {submitLoading ? <Spinner size="sm" /> : null}
               </Button>
             </Center>
           </Stack>
@@ -89,7 +90,7 @@ export default function Home() {
                   value={`${window.location.origin}/s/${shortUrlHash}`}
                 >
                   <ClipboardLabel fontSize="1.6rem">
-                    {CONSTANTS.revealTitle}
+                    {i18nLabels.revealTitle}
                   </ClipboardLabel>
                   <InputGroup
                     width="full"

@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { Roboto_Mono, Roboto } from 'next/font/google';
 import './globals.css';
-import { Provider } from '@/components/ui/provider';
+import { Provider as ChakraProvider } from '@/components/ui/provider';
+import I18nProvider from '../modules/i18n';
+import { getI18nLangKey } from '../modules/i18n/get-lang-key';
 
 const robotoSans = Roboto({
   variable: '--font-roboto-sans',
@@ -19,11 +21,12 @@ export const metadata: Metadata = {
   description: 'Shorten your URLs',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const i18nLangKey = await getI18nLangKey();
   return (
     <html
       lang="en"
@@ -32,7 +35,9 @@ export default function RootLayout({
     >
       <head />
       <body>
-        <Provider>{children}</Provider>
+        <ChakraProvider>
+          <I18nProvider lang={i18nLangKey}>{children}</I18nProvider>
+        </ChakraProvider>
       </body>
     </html>
   );
